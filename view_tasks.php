@@ -1,19 +1,7 @@
 <?
-  if(isset($_POST['officename'])) {$officename=$_POST['officename'];} else {$officename='0';}
-    if(isset($_POST['login'])) {$login=$_POST['login'];} else {$login='0';}
-      if(isset($_POST['password'])) {$password=$_POST['password'];} else {$password='0';}
+session_start();
+include_once 'block/db_connect.php';
 
-      //Подключаемся к выбранному РЭСу
-
-      $serverName = $officename; //serverName\instanceName, portNumber (default is 1433)
-      $connectionInfo = array( "Database"=>"pobut", "UID"=>$login, "PWD"=>$password);
-      $conn = sqlsrv_connect( $serverName, $connectionInfo);
-
-      if( $conn ) {
-     //echo "Соединение установлено.<br />";
-      }else{
-     echo "Соединение не установлено.<br />";
-      }
 ?>
 
 <!DOCTYPE html>
@@ -54,9 +42,9 @@
 
         <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
 
-        <form id="get_tasks">
+        <form id="get_tasks" action="view_ready_tasks.php" method="post">
           <?
-            $query_clerk = "select ClerkId, FName, SName, LName From Clerk Order By Fname";
+            $query_clerk = "SELECT ClerkId, FName, SName, LName FROM Clerk WHERE PostId = 1 and EndDate is null Order By Fname";
 
             $result = sqlsrv_query( $conn,$query_clerk);
 
@@ -64,7 +52,8 @@
                 die( print_r( sqlsrv_errors(), true));
               }
 
-              echo "<select type='text' name='name'>";
+              echo "<label for='name'>Оберіть контролера</label>";
+              echo "<select type='text' name='name' id='name' onchange='showCustomer(this.value)'>";
 
               while ($row = sqlsrv_fetch_array( $result, SQLSRV_FETCH_ASSOC)) {
                 $ConvFName = iconv("WINDOWS-1251", "utf-8", $row['FName']);
@@ -80,8 +69,32 @@
               echo "</select>";
           ?>
 
-          <p align="center"><input type="submit" id="submit_tasks" name="submit_tasks" value="Отримати завдання"></p>
+         
         <form>
+
+
+        </div>
+
+        <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
+
+        </div>
+    </div>
+
+
+
+    <!-- Выгрузка заданий для контролера-->
+
+      <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
+
+        </div>
+
+        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
+
+        
+       <div id="txtHint">Customer info will be listed here...</div>
+          
+          
 
         </div>
 
@@ -92,6 +105,25 @@
 
 </div>
 <!-- /.container -->
+
+<script>
+function showCustomer(str) {
+  var xhttp;
+  if (str == "") {
+    document.getElementById("txtHint").innerHTML = "";
+    return;
+  }
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("txtHint").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "view_ready_tasks.php?q="+str, true);
+  xhttp.send();
+}
+</script>
+
 
 <!-- jQuery -->
 <script src="js/jquery.js"></script>

@@ -483,11 +483,10 @@ background-color: #fd7474;
 
 #get_tasks label {
     font-family: "Open Sans";
-    font-size: 18px;
+    font-size: 28px;
     font-weight: bold;
     color: #333333;
     text-transform: uppercase;
-
 }
 
 #get_tasks select {
@@ -526,3 +525,4 @@ background-color: #fd7474;
     margin-top: 30px;
     text-align: center;
 }
+
