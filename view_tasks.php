@@ -36,11 +36,11 @@ include_once 'block/db_connect.php';
 <div class="container">
 
     <div class="row">
-        <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
         </div>
 
-        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 
         <form id="get_tasks" action="view_ready_tasks.php" method="post">
           <?
@@ -75,7 +75,7 @@ include_once 'block/db_connect.php';
 
         </div>
 
-        <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
         </div>
     </div>
@@ -85,20 +85,17 @@ include_once 'block/db_connect.php';
     <!-- Выгрузка заданий для контролера-->
 
       <div class="row">
-        <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
         </div>
 
-        <div class="col-xs-8 col-sm-8 col-md-6 col-lg-6">
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 
-        
-       <div id="txtHint">Customer info will be listed here...</div>
+          <div id="txtHint"></div>
           
-          
-
         </div>
 
-        <div class="col-xs-2 col-sm-2 col-md-3 col-lg-3">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
 
         </div>
     </div>
@@ -123,6 +120,18 @@ function showCustomer(str) {
   xhttp.send();
 }
 </script>
+
+
+<script>
+function hover(element) {
+    element.setAttribute('src', 'img/down.png');
+}
+
+function unhover(element) {
+    element.setAttribute('src', 'img/down_white.png');
+}
+</script>
+
 
 
 <!-- jQuery -->
